@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Right Dashboard</title>
+
+<style>
+/* ============================================================
+   GLOBAL THEME
+   ============================================================ */
+:root {
+    --bg: #0f172a;
+    --bg-alt: #111827;
+    --card: #1f2937;
+    --accent: #4f46e5;
+    --accent-soft: rgba(79, 70, 229, 0.12);
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #374151;
+    --danger: #dc2626;
+    --success: #16a34a;
+}
+
+/* Reset + base */
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top left, #111827 0, #020617 55%, #020617 100%);
+    color: var(--text);
+}
+
+/* ============================================================
+   HEADER — GLASS / FROSTED STYLE (C‑3)
+   ============================================================ */
+header {
+    width: 100%;
+    padding: 24px 16px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
+    /* Glass effect */
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+header span {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+main {
+    max-width: 1200px;
+    margin: 24px auto 40px;
+    padding: 0 16px;
+}
+
+.top-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+/* Summary cards */
+.summary-card {
+    background: linear-gradient(135deg, #111827, #020617);
+    border-radius: 14px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+}
+.summary-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.2), transparent 60%);
+    opacity: 0.8;
+    pointer-events: none;
+}
+.summary-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+.summary-value {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 8px 0 2px;
+}
+.summary-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    background: rgba(15, 23, 42, 0.7);
+    margin-top: 8px;
+}
+.badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+}
+
+/* ============================================================
+   PANELS
+   ============================================================ */
+.panel {
+    background: rgba(15, 23, 42, 0.95);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 18px 18px 16px;
+    backdrop-filter: blur(14px);
+}
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+}
+.panel-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+.panel-subtitle {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+.panel-section {
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed rgba(55, 65, 81, 0.7);
+}
+.panel-section:last-child {
+    border-bottom: none;
+}
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 16px;
+}
+.form-control {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8rem;
+}
+input, select {
+    background: #020617;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    padding: 7px 10px;
+    color: var(--text);
+    font-size: 0.85rem;
+}
+button {
+    border: none;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+.btn-primary {
+    background: linear-gradient(to right, #4f46e5, #6366f1);
+    color: white;
+}
+.btn-ghost {
+    background: rgba(15, 23, 42, 0.9);
+    color: var(--muted);
+    border: 1px solid var(--border);
+}
+.btn-danger {
+    background: rgba(220, 38, 38, 0.1);
+    color: #fca5a5;
+    border: 1px solid rgba(220, 38, 38, 0.6);
+}
+
+/* ============================================================
+   MEAL LIST
+   ============================================================ */
+.meal-list {
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px dashed rgba(75, 85, 99, 0.9);
+    padding: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+    background: rgba(15, 23, 42, 0.8);
+}
+.meal-item {
+    display: grid;
+    grid-template-columns: 2fr repeat(4, minmax(0, 0.7fr)) auto;
+    gap: 6px;
+    padding: 4px;
+    font-size: 0.8rem;
+}
+.meal-item:nth-child(odd) {
+    background: rgba(15, 23, 42, 0.9);
+}
+
+/* ============================================================
+   PROGRESS BARS
+   ============================================================ */
+.progress-bar { margin-top: 10px; }
+.progress-track {
+    width: 100%;
+    height: 7px;
+    border-radius: 999px;
+    background: #020617;
+    border: 1px solid rgba(55, 65, 81, 0.9);
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(to right, #4f46e5, #22c55e);
+    width: 0%;
+    transition: width 0.2s ease-out;
+}
+.progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+/* ============================================================
+   HISTORY
+   ============================================================ */
+.history-list {
+    margin-top: 8px;
+    max-height: 230px;
+    overflow-y: auto;
+}
+.history-day {
+    border-radius: 10px;
+    border: 1px solid rgba(55, 65, 81, 0.9);
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    background: rgba(15, 23, 42, 0.9);
+    font-size: 0.8rem;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+</style>
+
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER — Frosted Glass
+     ============================================================ -->
+<header>
+    <h1>Get Right Dashboard</h1>
+    <span>Personal nutrition, energy, and intake tracking</span>
+</header>
+
+<main>
+
+<!-- ============================================================
+     SUMMARY CARDS
+     ============================================================ -->
+<section class="top-summary">
+    <div class="summary-card">
+        <div class="summary-label">Daily energy target</div>
+        <div class="summary-value" id="summary-tdee">– kcal</div>
+        <div class="summary-sub" id="summary-rmr-sub">RMR not calculated yet</div>
+        <div class="badge">
+            <span class="badge-dot"></span>
+            <span id="summary-status-text">Awaiting inputs</span>
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-label">Macro targets</div>
+        <div class="summary-value" id="summary-macros">– / – / – g</div>
+        <div class="summary-sub">Protein / Carbs / Fats</div>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-label">Today’s intake</div>
+        <div class="summary-value" id="summary-intake">0 kcal</div>
+        <div class="summary-sub" id="summary-intake-diff">No foods logged yet</div>
+    </div>
+</section>
+
+<!-- ============================================================
+     MAIN GRID
+     ============================================================ -->
+<section class="grid-main" style="display:grid; grid-template-columns: minmax(0,2fr) minmax(0,3fr); gap:24px;">
+
+<!-- ============================================================
+     LEFT PANEL — CALCULATORS
+     ============================================================ -->
+<section class="panel">
+
+    <div class="panel-header">
+        <div>
+            <div class="panel-title">Body & energy calculators</div>
+            <div class="panel-subtitle">Set your baseline and daily burn</div>
+        </div>
+    </div>
+
+    <!-- BODY PROFILE -->
+    <div class="panel-section">
+        <div class="panel-subtitle">Body profile</div>
+        <div class="form-grid">
+            <div class="form-control">
+                <label>Gender</label>
+                <select id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+
+            <div class="form-control">
+                <label>Age</label>
+                <input id="age" type="number">
+            </div>
+
+            <div class="form-control">
+                <label>Weight (lbs)</label>
+                <input id="weight" type="number">
+            </div>
+
+            <div class="form-control">
+                <label>Height (in)</label>
+                <input id="height" type="number">
+            </div>
+        </div>
+    </div>
+
+    <!-- RMR / TDEE -->
+    <div class="panel-section">
+        <div class="panel-subtitle">Energy calculations</div>
+
+        <div class="form-grid">
+            <div class="form-control">
+                <label>Activity level</label>
+                <select id="activity">
+                    <option value="1.2">Sedentary</option>
+                    <option value="1.375">Light exercise</option>
+                    <option value="1.55">Moderate exercise</option>
+                    <option value="1.725">Heavy exercise</option>
+                    <option value="1.9">Athlete</option>
+                </select>
+            </div>
+
+            <div class="form-control">
+                <label>Goal pace</label>
+                <select id="goal-pace">
+                    <option value="0">Maintain weight</option>
+                    <option value="-500">Lose ~1 lb/week</option>
+                    <option value="-750">Lose ~1.5 lb/week</option>
+                    <option value="-1000">Lose ~2 lb/week</option>
+                    <option value="250">Gain ~0.5 lb/week</option>
+                    <option value="500">Gain ~1 lb/week</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:8px; display:flex; gap:8px;">
+            <button class="btn-primary btn-sm" id="btn-rmr">Calculate RMR</button>
+            <button class="btn-ghost btn-sm" id="btn-tdee">Calculate TDEE</button>
+        </div>
+
+        <div class="result-text" id="rmr-result"></div>
+        <div class="result-text" id="tdee-result"></div>
+        <div class="result-text" id="calorie-targets"></div>
+    </div>
+
+    <!-- MACROS -->
+    <div class="panel-section">
+        <div class="panel-subtitle">Macro distribution</div>
+
+        <div class="form-grid">
+            <div class="form-control">
+                <label>Macro style</label>
+                <select id="macro-style">
+                    <option value="balanced">Balanced (30/40/30)</option>
+                    <option value="high-protein">High protein (35/35/30)</option>
+                    <option value="low-carb">Low carb (35/25/40)</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+
+            <div class="form-control">
+                <label>Protein %</label>
+                <input id="macro-protein" type="number" value="30">
+            </div>
+
+            <div class="form-control">
+                <label>Carbs %</label>
+                <input id="macro-carbs" type="number" value="40">
+            </div>
+
+            <div class="form-control">
+                <label>Fat %</label>
+                <input id="macro-fat" type="number" value="30">
+            </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:8px; display:flex; gap:8px;">
+            <button class="btn-primary btn-sm" id="btn-macros">Calculate macros</button>
+            <span class="muted" id="macro-warn"></span>
+        </div>
+
+        <div class="macro-row" id="macro-results-row" style="display:none; margin-top:8px; font-size:0.85rem;">
+            <div><strong id="macro-kcal"></strong> kcal</div>
+            <div><strong id="macro-protein-g"></strong> g protein</div>
+            <div><strong id="macro-carbs-g"></strong> g carbs</div>
+        </div>
+
+        <div class="macro-row" id="macro-results-row-2" style="display:none; margin-top:4px; font-size:0.85rem;">
+            <div></div>
+            <div><strong id="macro-fat-g"></strong> g fats</div>
+            <div></div>
+        </div>
+    </div>
+
+</section>
+
+<!-- ============================================================
+     RIGHT PANEL — INTAKE LOG
+     ============================================================ -->
+<section class="panel">
+
+    <div class="panel-header">
+        <div>
+            <div class="panel-title">Daily intake log</div>
+            <div class="panel-subtitle">Track your meals</div>
+        </div>
+        <div class="btn-row" style="display:flex; gap:8px;">
+            <button class="btn-ghost btn-sm" id="btn-clear-day">Clear today</button>
+            <button class="btn-danger btn-sm" id="btn-reset-all">Reset all data</button>
+        </div>
+    </div>
+
+    <!-- ADD FOOD -->
+    <div class="panel-section">
+        <div class="panel-subtitle">Add food</div>
+
+        <div class="meal-form" style="display:grid; grid-template-columns:1.4fr repeat(4,1fr); gap:8px;">
+            <div class="form-control">
+                <label>Item</label>
+                <input id="food-name" type="text">
+            </div>
+
+            <div class="form-control">
+                <label>Calories</label>
+                <input id="food-calories" type="number">
+            </div>
+
+            <div class="form-control">
+                <label>Protein</label>
+                <input id="food-protein" type="number">
+            </div>
+
+            <div class="form-control">
+                <label>Carbs</label>
+                <input id="food-carbs" type="number">
+            </div>
+
+            <div class="form-control">
+                <label>Fat</label>
+                <input id="food-fat" type="number">
+            </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:8px;">
+            <button class="btn-primary btn-sm" id="btn-add-food">Add to day</button>
+        </div>
+    </div>
+
+    <!-- MEAL LIST -->
+    <div class="panel-section">
+        <div class="panel-subtitle">Today’s foods</div>
+
+        <div class="meal-list" id="meal-list">
+            <div class="muted">No foods logged yet.</div>
+        </div>
+
+        <div class="totals-row" style="display:flex; justify-content:space-between; margin-top:8px; font-size:0.85rem;">
+            <div><strong id="totals-kcal">0</strong> kcal</div>
+            <div><strong id="totals-protein">0</strong> g protein</div>
+            <div><strong id="totals-carbs">0</strong> g carbs</div>
+            <div><strong id="totals-fat">0</strong> g fats</div>
+        </div>
+    </div>
+
+    <!-- PROGRESS BARS -->
+    <div>
+        <div class="panel-subtitle">Progress vs targets</div>
+
+        <div class="progress-bar">
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-kcal"></div>
+            </div>
+            <div class="progress-meta">
+                <span>Calories</span>
+                <span id="progress-kcal-label">0 / – kcal</span>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-protein"></div>
+            </div>
+            <div class="progress-meta">
+                <span>Protein</span>
+                <span id="progress-protein-label">0 / – g</span>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-carbs"></div>
+            </div>
+            <div class="progress-meta">
+                <span>Carbs</span>
+                <span id="progress-carbs-label">0 / – g</span>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fat"></div>
+            </div>
+            <div class="progress-meta">
+                <span>Fat</span>
+                <span id="progress-fat-label">0 / – g</span>
+            </div>
+        </div>
+    </div>
+
+</section>
+</section>
+
+<!-- ============================================================
+     HISTORY PANEL
+     ============================================================ -->
+<section class="panel" style="margin-top:24px;">
+    <div class="panel-header">
+        <div>
+            <div class="panel-title">Daily history</div>
+            <div class="panel-subtitle">Automatically saved when days change</div>
+        </div>
+    </div>
+
+    <div id="history-list" class="history-list">
+        <div class="muted">No past days stored yet.</div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    © 2026 Get Right Dashboard
+</footer>
+<script>
+/* ============================================================
+   STATE
+   ============================================================ */
+let rmr = null;
+let tdee = null;
+let goalCalories = null;
+let macroTargets = { kcal: null, protein: null, carbs: null, fat: null };
+let meals = [];
+let history = [];
+let lastDate = null;
+
+const STORAGE_KEY = "getright_dashboard_state_v1";
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function getNumber(id) {
+    const val = parseFloat(document.getElementById(id).value);
+    return isNaN(val) ? null : val;
+}
+
+function todayISO() {
+    return new Date().toISOString().slice(0, 10);
+}
+
+function calculateTotals(list = meals) {
+    return list.reduce(
+        (acc, m) => {
+            acc.kcal += m.calories;
+            acc.protein += m.protein;
+            acc.carbs += m.carbs;
+            acc.fat += m.fat;
+            return acc;
+        },
+        { kcal: 0, protein: 0, carbs: 0, fat: 0 }
+    );
+}
+
+/* ============================================================
+   SAVE / LOAD
+   ============================================================ */
+function saveState() {
+    const state = {
+        rmr,
+        tdee,
+        goalCalories,
+        macroTargets,
+        meals,
+        history,
+        lastDate,
+        profile: {
+            gender: gender.value,
+            age: age.value,
+            weight: weight.value,
+            height: height.value
+        },
+        macrosPct: {
+            protein: document.getElementById("macro-protein").value,
+            carbs: document.getElementById("macro-carbs").value,
+            fat: document.getElementById("macro-fat").value
+        }
+    };
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadState() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+        lastDate = todayISO();
+        updateSummaryCards();
+        updateTotalsUI();
+        updateHistoryUI();
+        return;
+    }
+
+    const saved = JSON.parse(raw);
+
+    rmr = saved.rmr;
+    tdee = saved.tdee;
+    goalCalories = saved.goalCalories;
+    macroTargets = saved.macroTargets || macroTargets;
+    meals = saved.meals || [];
+    history = saved.history || [];
+    lastDate = saved.lastDate || todayISO();
+
+    if (saved.profile) {
+        gender.value = saved.profile.gender;
+        age.value = saved.profile.age;
+        weight.value = saved.profile.weight;
+        height.value = saved.profile.height;
+    }
+
+    if (saved.macrosPct) {
+        document.getElementById("macro-protein").value = saved.macrosPct.protein;
+        document.getElementById("macro-carbs").value = saved.macrosPct.carbs;
+        document.getElementById("macro-fat").value = saved.macrosPct.fat;
+    }
+
+    handleDailyRolloverOnLoad();
+    updateTotalsUI();
+    updateSummaryCards();
+    updateHistoryUI();
+}
+
+/* ============================================================
+   DAILY ROLLOVER
+   ============================================================ */
+function addTodayToHistory(reason) {
+    if (!meals.length) return;
+
+    const totals = calculateTotals();
+
+    history.unshift({
+        date: lastDate,
+        totals,
+        reason,
+        mealCount: meals.length
+    });
+
+    meals = [];
+}
+
+function handleDailyRolloverOnLoad() {
+    const today = todayISO();
+
+    if (lastDate !== today && meals.length) {
+        addTodayToHistory("auto-rollover");
+        lastDate = today;
+        saveState();
+    }
+}
+
+/* ============================================================
+   UI UPDATES
+   ============================================================ */
+function updateSummaryCards() {
+    const totals = calculateTotals();
+
+    // Intake summary
+    document.getElementById("summary-intake").textContent = totals.kcal + " kcal";
+
+    // TDEE summary
+    const tdeeEl = document.getElementById("summary-tdee");
+    const rmrSub = document.getElementById("summary-rmr-sub");
+    const statusText = document.getElementById("summary-status-text");
+
+    if (tdee) {
+        tdeeEl.textContent = Math.round(tdee) + " kcal";
+        rmrSub.textContent = rmr
+            ? "RMR " + Math.round(rmr) + " kcal · activity applied"
+            : "TDEE based on activity";
+        statusText.textContent = goalCalories
+            ? "Goal: " + Math.round(goalCalories) + " kcal/day"
+            : "No goal set";
+    } else {
+        tdeeEl.textContent = "– kcal";
+        rmrSub.textContent = "RMR not calculated yet";
+        statusText.textContent = "Awaiting inputs";
+    }
+
+    // Macro summary
+    const macrosText = document.getElementById("summary-macros");
+    if (macroTargets.kcal) {
+        macrosText.textContent =
+            Math.round(macroTargets.protein) + " / " +
+            Math.round(macroTargets.carbs) + " / " +
+            Math.round(macroTargets.fat) + " g";
+    } else {
+        macrosText.textContent = "– / – / – g";
+    }
+
+    updateProgressBars();
+}
+
+function updateMealList() {
+    const list = document.getElementById("meal-list");
+    list.innerHTML = "";
+
+    if (!meals.length) {
+        list.innerHTML = `<div class="muted">No foods logged yet.</div>`;
+        return;
+    }
+
+    meals.forEach((meal, i) => {
+        const row = document.createElement("div");
+        row.className = "meal-item";
+        row.innerHTML = `
+            <div>${meal.name}</div>
+            <div>${meal.calories} kcal</div>
+            <div>${meal.protein} g</div>
+            <div>${meal.carbs} g</div>
+            <div>${meal.fat} g</div>
+            <button data-i="${i}">×</button>
+        `;
+        list.appendChild(row);
+    });
+
+    list.querySelectorAll("button").forEach(btn => {
+        btn.onclick = () => {
+            meals.splice(btn.dataset.i, 1);
+            updateTotalsUI();
+            saveState();
+        };
+    });
+}
+
+function updateTotalsUI() {
+    const totals = calculateTotals();
+
+    document.getElementById("totals-kcal").textContent = totals.kcal;
+    document.getElementById("totals-protein").textContent = totals.protein;
+    document.getElementById("totals-carbs").textContent = totals.carbs;
+    document.getElementById("totals-fat").textContent = totals.fat;
+
+    updateMealList();
+    updateSummaryCards();
+}
+
+function updateProgressBars() {
+    const totals = calculateTotals();
+
+    function setBar(fillId, labelId, current, target, unit) {
+        const fill = document.getElementById(fillId);
+        const label = document.getElementById(labelId);
+
+        if (!target) {
+            fill.style.width = "0%";
+            label.textContent = `${current} / – ${unit}`;
+            return;
+        }
+
+        const pct = Math.min(150, (current / target) * 100);
+        fill.style.width = pct + "%";
+        label.textContent = `${current} / ${Math.round(target)} ${unit}`;
+    }
+
+    setBar("progress-kcal", "progress-kcal-label", totals.kcal, goalCalories, "kcal");
+    setBar("progress-protein", "progress-protein-label", totals.protein, macroTargets.protein, "g");
+    setBar("progress-carbs", "progress-carbs-label", totals.carbs, macroTargets.carbs, "g");
+    setBar("progress-fat", "progress-fat-label", totals.fat, macroTargets.fat, "g");
+}
+
+function updateHistoryUI() {
+    const container = document.getElementById("history-list");
+    container.innerHTML = "";
+
+    if (!history.length) {
+        container.innerHTML = `<div class="muted">No past days stored yet.</div>`;
+        return;
+    }
+
+    history.forEach(day => {
+        const div = document.createElement("div");
+        div.className = "history-day";
+        div.innerHTML = `
+            <strong>${day.date}</strong> — ${day.totals.kcal} kcal
+            <div class="muted">${day.mealCount} items (${day.reason})</div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+/* ============================================================
+   EVENT HANDLERS
+   ============================================================ */
+
+// RMR
+document.getElementById("btn-rmr").onclick = () => {
+    const genderVal = gender.value;
+    const ageVal = getNumber("age");
+    const weightLbs = getNumber("weight");
+    const heightIn = getNumber("height");
+
+    if (!ageVal || !weightLbs || !heightIn) {
+        document.getElementById("rmr-result").textContent =
+            "Please fill in age, weight, and height.";
+        return;
+    }
+
+    const weight = weightLbs * 0.453592;
+    const height = heightIn * 2.54;
+
+    rmr = genderVal === "male"
+        ? (10 * weight) + (6.25 * height) - (5 * ageVal) + 5
+        : (10 * weight) + (6.25 * height) - (5 * ageVal) - 161;
+
+    document.getElementById("rmr-result").textContent =
+        "RMR: " + Math.round(rmr) + " calories/day.";
+
+    updateSummaryCards();
+    saveState();
+};
+
+// TDEE
+document.getElementById("btn-tdee").onclick = () => {
+    if (!rmr) {
+        document.getElementById("tdee-result").textContent =
+            "Please calculate your RMR first.";
+        return;
+    }
+
+    const activity = parseFloat(document.getElementById("activity").value);
+    tdee = rmr * activity;
+
+    document.getElementById("tdee-result").textContent =
+        "TDEE: " + Math.round(tdee) + " calories/day.";
+
+    const goalOffset = parseFloat(document.getElementById("goal-pace").value);
+    goalCalories = tdee + goalOffset;
+
+    document.getElementById("calorie-targets").textContent =
+        "Goal daily intake: " + Math.round(goalCalories) + " calories/day.";
+
+    updateSummaryCards();
+    saveState();
+};
+
+// Macro style presets
+document.getElementById("macro-style").onchange = () => {
+    const style = document.getElementById("macro-style").value;
+
+    if (style === "balanced") {
+        macro-protein.value = 30;
+        macro-carbs.value = 40;
+        macro-fat.value = 30;
+    } else if (style === "high-protein") {
+        macro-protein.value = 35;
+        macro-carbs.value = 35;
+        macro-fat.value = 30;
+    } else if (style === "low-carb") {
+        macro-protein.value = 35;
+        macro-carbs.value = 25;
+        macro-fat.value = 40;
+    }
+
+    saveState();
+    updateSummaryCards();
+};
+
+// Macro calculation
+document.getElementById("btn-macros").onclick = () => {
+    const pPct = getNumber("macro-protein") || 0;
+    const cPct = getNumber("macro-carbs") || 0;
+    const fPct = getNumber("macro-fat") || 0;
+
+    const warn = document.getElementById("macro-warn");
+
+    if (!goalCalories) {
+        warn.textContent = "Calculate TDEE + goal first.";
+        return;
+    }
+
+    const sum = pPct + cPct + fPct;
+    if (sum !== 100) {
+        warn.textContent = "Protein + carbs + fats must equal 100%. Current: " + sum + "%";
+        return;
+    }
+
+    warn.textContent = "";
+
+    const kcal = goalCalories;
+    macroTargets = {
+        kcal,
+        protein: (pPct / 100) * kcal / 4,
+        carbs: (cPct / 100) * kcal / 4,
+        fat: (fPct / 100) * kcal / 9
+    };
+
+    document.getElementById("macro-kcal").textContent = Math.round(kcal);
+    document.getElementById("macro-protein-g").textContent = Math.round(macroTargets.protein);
+    document.getElementById("macro-carbs-g").textContent = Math.round(macroTargets.carbs);
+    document.getElementById("macro-fat-g").textContent = Math.round(macroTargets.fat);
+
+    document.getElementById("macro-results-row").style.display = "grid";
+    document.getElementById("macro-results-row-2").style.display = "grid";
+
+    updateSummaryCards();
+    saveState();
+};
+
+// Add food
+document.getElementById("btn-add-food").onclick = () => {
+    const name = document.getElementById("food-name").value.trim();
+    const calories = getNumber("food-calories") || 0;
+    const protein = getNumber("food-protein") || 0;
+    const carbs = getNumber("food-carbs") || 0;
+    const fat = getNumber("food-fat") || 0;
+
+    if (!name && calories === 0 && protein === 0 && carbs === 0 && fat === 0) return;
+
+    meals.push({
+        name: name || "Unnamed item",
+        calories,
+        protein,
+        carbs,
+        fat
+    });
+
+    document.getElementById("food-name").value = "";
+    document.getElementById("food-calories").value = "";
+    document.getElementById("food-protein").value = "";
+    document.getElementById("food-carbs").value = "";
+    document.getElementById("food-fat").value = "";
+
+    updateTotalsUI();
+    saveState();
+};
+
+// Clear today
+document.getElementById("btn-clear-day").onclick = () => {
+    if (!meals.length) return;
+
+    addTodayToHistory("manual-clear");
+    meals = [];
+    lastDate = todayISO();
+
+    updateTotalsUI();
+    updateHistoryUI();
+    saveState();
+};
+
+// Reset all
+document.getElementById("btn-reset-all").onclick = () => {
+    if (!confirm("Erase ALL data?")) return;
+
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+};
+
+/* ============================================================
+   INIT
+   ============================================================ */
+loadState();
+</script>
+</body>
+</html>
